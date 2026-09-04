@@ -25,8 +25,6 @@ Question ─► Bidirectional LSTM Encoder → (h, c) ─► Fusion (concat + Li
 | Model 3 | CNN từ đầu | Có (dạng element-wise gating giữa image feature và question hidden state — **không phải attention trên feature map không gian**) | 13,026,084 |
 | Model 4 | ResNet-50 pretrained | Có (soft spatial attention thật sự, tính trên feature map 7×7×2048 = 49 vùng không gian, điều kiện theo câu hỏi) | 24,188,196 |
 
-[CẦN BỔ SUNG] — nếu README này công khai, nên làm rõ thêm rằng "attention" ở Model 3 chỉ là một cơ chế gating đơn giản, không cùng bản chất với `SpatialAttention` dùng ở Model 4, để tránh hiểu nhầm khi so sánh kết quả.
-
 **Các thành phần chính:**
 - `CNN_Scratch`: 4 lớp Conv2d + BatchNorm + ReLU (stride 2), AdaptiveAvgPool2d, Linear projection → `HIDDEN_DIM` (512)
 - `CNN_Pretrained`: ResNet-50 (`torchvision.models.resnet50`, weights `IMAGENET1K_V1`), bỏ avgpool/fc gốc, có thể trả về feature map không gian (49×2048) khi dùng attention
